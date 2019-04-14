@@ -8,7 +8,7 @@ class UniItem(scrapy.Item):
     title=scrapy.Field()
     subtitle=scrapy.Field()
     decription=scrapy.Field()
-    teachers=scrapy.Field()
+    kaf=scrapy.Field()
 
 class UniItemLoader(ItemLoader):
     url_out=TakeFirst()
