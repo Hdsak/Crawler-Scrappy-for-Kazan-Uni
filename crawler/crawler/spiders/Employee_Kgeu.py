@@ -22,7 +22,7 @@ class Employee(CrawlSpider):
             yield{
                 'kaf_name': quote.xpath("//div[@class='shablon-menu-header']/text()").getall(),
                 'employees': quote.xpath("//div[@class='employee-header']//a/text()").getall(),
-                'zav_kaf':quote.xpath("//div[class='employee-header']//span/text()")
+                'zav_kaf':quote.xpath("//body/div[@class='all']/div[@class='frame']/div[@class='cols']/div[@class='white']/div[@class='main_inner']/div[@class='page_content']/div[@class='content-wrapper']/div[1]")/get()
             }
 
 # Ранжирование по кафедрам иснтитутов и преподавателей
