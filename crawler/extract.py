@@ -92,6 +92,8 @@ hist.x_title = "Kafedras name"
 hist.y_title = "Count sotr"
 hist.add("employee numbers", employee_numbers)
 hist.render_to_file("histo.svg")
+
+
 IEE_kafs = []
 for i in d[0]['subtitle']:
     IEE_kafs.append(i)
@@ -104,20 +106,36 @@ ICTE_kafs = []
 for i in d[2]['subtitle']:
     ICTE_kafs.append(i)
 ICTE = {d[2]["title"]: ICTE_kafs}
-zav_kaf_name = {}
+# zav_kaf_name = {}
 unis = [IEE, IT, ICTE]
-for i in range(len(d)):
-    for k in p:
-        zav_kaf_name[k["kaf_name"]] = k["employees"][0]
+# for i in range(len(d)):
+#     for k in p:
+#         zav_kaf_name[k["kaf_name"]] = k["employees"][0]
+# with open('zav_name.txt', 'w') as w:
+#     w.write("\t\t\t\t\tЗаведующие кафедрами в КГЭУ")
+#     for i in unis:
+#         name_uni = list(i.keys())
+#         # name_uni = re.sub("^\s+|\n|\r|\s+$", '', name_uni[-1])
+#         name_uni=name_uni[-1]
+#         w.write("\n\n\n"+name_uni)
+#         for k, v in zav_kaf_name.items():
+#             key_uni = re.sub("^\s+|\n|\r|\s+$", '', k)
+#             if key_uni in i[name_uni]:
+#                 #name = re.sub("^\s+|\n|\r|\s+$", '', k)
+#                 w.write(("\r\r\t    {} - {} ").format(key_uni, v))
+
+with open('test.json') as w:
+    test_file_data = json.load(w)
 with open('zav_name.txt', 'w') as w:
     w.write("\t\t\t\t\tЗаведующие кафедрами в КГЭУ")
     for i in unis:
         name_uni = list(i.keys())
         # name_uni = re.sub("^\s+|\n|\r|\s+$", '', name_uni[-1])
-        name_uni=name_uni[-1]
+        name_uni = name_uni[-1]
         w.write("\n\n\n"+name_uni)
-        for k, v in zav_kaf_name.items():
-            key_uni = re.sub("^\s+|\n|\r|\s+$", '', k)
-            if key_uni in i[name_uni]:
-                #name = re.sub("^\s+|\n|\r|\s+$", '', k)
-                w.write(("\r\r\t    {} - {} ").format(key_uni, v))
+        for r in test_file_data:
+            for k, v in r.items():
+                key_uni = re.sub("^\s+|\n|\r|\s+$", '', v[0])
+                if key_uni in i[name_uni]:
+                    w.write(("\r\r\t    {} - {}\r\r\t\t Ученая степень : {}")
+                            .format(key_uni, r['zav_name'], r['zav_kaf'][0]))

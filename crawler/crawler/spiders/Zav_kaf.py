@@ -16,17 +16,11 @@ for k in d:
         url_list.append("https://kgeu.ru"+newx)
 
 
-class Employee(CrawlSpider):
-    name = "Employee_Kgeu"
+class Zav(CrawlSpider):
+    name = "Zav"
     start_urls = url_list
 
     def parse(self, response):
-        for quote in response.xpath("//div[@class='frame']"):
-            yield{
-                'kaf_name': quote.xpath("//div[@class='shablon-menu-header']/text()").getall(),
-                'employees': quote.xpath("//div[@class='employee-header']//a/text()").getall(),
-                # 'zav_kaf': quote.xpath("//body/div[@class='all']/div[@class='frame']/div[@class='cols']/div[@class='white']/div[@class='main_inner']/div[@class='page_content']/div[@class='content-wrapper']//div[1]//p//span/text()").getall()
-            }
         next_page = response.xpath(
             "//div[@class='main_inner']//div[4]//a/@href").get()
         if next_page is not None:
@@ -35,6 +29,8 @@ class Employee(CrawlSpider):
 
     def zav(self, response):
         yield{
+            'kaf_name': response.xpath("//div[@class='shablon-menu-header']/text()").getall(),
+            'zav_name':response.xpath("//div[@class='page_content']//h1/text()").get(),
             'zav_kaf': response.xpath("//body/div[@class='all']/div[@class='frame']/div[@class='cols']/div[@class='white']/div[@class='main_inner']/div[@class='page_content']/div[@class='content-wrapper']//div[1]//p//span/text()").getall()
         }
 
